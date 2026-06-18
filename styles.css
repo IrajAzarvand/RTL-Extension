@@ -1,0 +1,80 @@
+/* کانتینر فارسی */
+
+.persian-text-container {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* متن‌ها */
+
+.persian-text-container p,
+.persian-text-container li,
+.persian-text-container blockquote,
+.persian-text-container h1,
+.persian-text-container h2,
+.persian-text-container h3,
+.persian-text-container h4,
+.persian-text-container h5,
+.persian-text-container h6 {
+  direction: rtl !important;
+  text-align: right !important;
+  unicode-bidi: plaintext !important;
+}
+
+/* لیست‌ها */
+
+.persian-text-container ul,
+.persian-text-container ol {
+  direction: rtl !important;
+  text-align: right !important;
+}
+
+/* جدول‌ها */
+
+.persian-text-container table,
+.persian-text-container tbody,
+.persian-text-container thead {
+  direction: rtl !important;
+}
+
+/* کدها */
+
+.persian-text-container pre,
+.persian-text-container code,
+.persian-text-container pre *,
+.persian-text-container code *,
+.persian-text-container .overflow-x-auto,
+.persian-text-container .overflow-x-auto * {
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: normal !important;
+}
+
+/* جلوگیری از مخفی شدن کد */
+
+.persian-text-container pre,
+.persian-text-container code {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* جدول داخل کد */
+
+.persian-text-container pre table,
+.persian-text-container code table {
+  direction: ltr !important;
+}
+
+/* لینک‌ها */
+
+.persian-text-container a {
+  direction: rtl !important;
+}
+
+/* متن‌های bold و italic */
+
+.persian-text-container strong,
+.persian-text-container em {
+  unicode-bidi: plaintext !important;
+}
