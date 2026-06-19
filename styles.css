@@ -1,11 +1,6 @@
-/* کانتینر فارسی */
-
-.persian-text-container {
-  direction: rtl !important;
-  text-align: right !important;
-}
-
-/* متن‌ها */
+/* =========================
+   Persian Messages
+========================= */
 
 .persian-text-container p,
 .persian-text-container li,
@@ -15,13 +10,16 @@
 .persian-text-container h3,
 .persian-text-container h4,
 .persian-text-container h5,
-.persian-text-container h6 {
+.persian-text-container h6,
+.persian-text-container .qwen-markdown-paragraph {
   direction: rtl !important;
   text-align: right !important;
   unicode-bidi: plaintext !important;
 }
 
-/* لیست‌ها */
+/* =========================
+   Lists
+========================= */
 
 .persian-text-container ul,
 .persian-text-container ol {
@@ -29,52 +27,76 @@
   text-align: right !important;
 }
 
-/* جدول‌ها */
+/* =========================
+   Tables
+========================= */
 
 .persian-text-container table,
-.persian-text-container tbody,
-.persian-text-container thead {
+.persian-text-container thead,
+.persian-text-container tbody {
   direction: rtl !important;
 }
 
-/* کدها */
+/* =========================
+   Inline Code
+========================= */
 
-.persian-text-container pre,
-.persian-text-container code,
-.persian-text-container pre *,
-.persian-text-container code *,
-.persian-text-container .overflow-x-auto,
-.persian-text-container .overflow-x-auto * {
+.qwen-markdown-codespan,
+.qwen-markdown-codespan * {
+  direction: ltr !important;
+  unicode-bidi: bidi-override !important;
+  text-align: left !important;
+  display: inline-block !important;
+}
+
+code:not(pre code) {
+  direction: ltr !important;
+  unicode-bidi: bidi-override !important;
+  text-align: left !important;
+  display: inline-block !important;
+}
+
+/* =========================
+   Code Blocks
+========================= */
+
+pre,
+pre *,
+code,
+code * {
+  direction: ltr !important;
+  text-align: left !important;
+}
+
+pre code {
+  unicode-bidi: normal !important;
+}
+
+/* =========================
+   Qwen Code Blocks
+========================= */
+
+.qwen-markdown-code-body,
+.qwen-markdown-code-body * {
   direction: ltr !important;
   text-align: left !important;
   unicode-bidi: normal !important;
 }
 
-/* جلوگیری از مخفی شدن کد */
+/* =========================
+   Links
+========================= */
 
-.persian-text-container pre,
-.persian-text-container code {
-  display: block !important;
+a {
+  unicode-bidi: isolate !important;
+}
+
+/* =========================
+   Prevent Hidden Code
+========================= */
+
+pre,
+code {
   visibility: visible !important;
   opacity: 1 !important;
-}
-
-/* جدول داخل کد */
-
-.persian-text-container pre table,
-.persian-text-container code table {
-  direction: ltr !important;
-}
-
-/* لینک‌ها */
-
-.persian-text-container a {
-  direction: rtl !important;
-}
-
-/* متن‌های bold و italic */
-
-.persian-text-container strong,
-.persian-text-container em {
-  unicode-bidi: plaintext !important;
 }

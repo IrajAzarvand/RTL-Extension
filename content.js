@@ -7,26 +7,20 @@ class PersianTextFixer {
   isPersianText(text) {
     if (!text) return false;
 
-    const cleanText = text.trim();
+    const clean = text.trim();
 
-    if (cleanText.length < this.MIN_TEXT_LENGTH) {
+    if (clean.length < this.MIN_TEXT_LENGTH) {
       return false;
     }
 
     const persianChars =
       (
-        cleanText.match(
+        clean.match(
           /[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF]/g
         ) || []
       ).length;
 
-    const totalChars = cleanText.length;
-
-    if (totalChars === 0) {
-      return false;
-    }
-
-    return (persianChars / totalChars) >= this.PERSIAN_THRESHOLD;
+    return (persianChars / clean.length) >= this.PERSIAN_THRESHOLD;
   }
 
   processElement(element) {
@@ -34,33 +28,61 @@ class PersianTextFixer {
 
     if (!text) return;
 
-    if (this.isPersianText(text)) {
-      element.classList.add("persian-text-container");
-    } else {
+    if (!this.isPersianText(text)) {
       element.classList.remove("persian-text-container");
+      return;
     }
+
+    if (
+      element.classList.contains("qwen-markdown-code-body")
+    ) {
+      return;
+    }
+
+    element.classList.add("persian-text-container");
+  }
+
+  fixInlineCodeDirection() {
+    const selectors = [
+      "code",
+      ".qwen-markdown-codespan",
+      "pre code"
+    ];
+
+    document
+      .querySelectorAll(selectors.join(","))
+      .forEach(el => {
+        el.setAttribute("dir", "ltr");
+      });
   }
 
   findChatElements() {
     const selectors = [
-      'div[data-message-author-role="assistant"]',
-      'div[class*="message-content"]',
-      'div[class*="markdown"]',
-      'div[class*="prose"]',
-      'article',
-      'div[class*="response"]',
-      'div[class*="answer"]'
+      "article",
+      "div[data-message-author-role]",
+      "div[class*='markdown']",
+      "div[class*='prose']",
+      "div[class*='message']",
+      "div[class*='response']",
+      "div[class*='answer']",
+      ".qwen-markdown",
+      ".custom-qwen-markdown",
+      ".qwen-markdown-paragraph"
     ];
 
-    return document.querySelectorAll(selectors.join(", "));
+    return document.querySelectorAll(
+      selectors.join(", ")
+    );
   }
 
   processAllElements() {
     const elements = this.findChatElements();
 
-    elements.forEach((element) => {
+    elements.forEach(element => {
       this.processElement(element);
     });
+
+    this.fixInlineCodeDirection();
   }
 
   setupObserver() {
@@ -80,7 +102,7 @@ class PersianTextFixer {
   }
 
   init() {
-    console.log("🚀 Persian AI Text Fixer Loaded");
+    console.log("🚀 Persian AI Text Fixer Started");
 
     this.processAllElements();
 
@@ -95,9 +117,10 @@ class PersianTextFixer {
 const fixer = new PersianTextFixer();
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", () => {
-    fixer.init();
-  });
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => fixer.init()
+  );
 } else {
   fixer.init();
 }
